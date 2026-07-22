@@ -1,12 +1,16 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { SafeAreaView, ScrollView, StatusBar } from "react-native";
+import { Card, MD3DarkTheme, PaperProvider, Text } from "react-native-paper";
+import styles from "./styles";
+
+const theme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: "#d3a95f",
+    background: "#121212",
+    surface: "#242424",
+  },
+};
 
 export default function App() {
   const filmes = [
@@ -67,100 +71,48 @@ export default function App() {
     },
   ];
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <PaperProvider theme={theme}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-      <ScrollView contentContainerStyle={styles.conteudo}>
-        <Text style={styles.tituloPrincipal}>Meus filmes prediletos</Text>
+        <ScrollView contentContainerStyle={styles.conteudo}>
+          <Text variant="headlineLarge" style={styles.tituloPrincipal}>
+            Meus filmes favoritos
+          </Text>
 
-        <Text style={styles.introducao}>Top 5 filmes que eu mais gosto.</Text>
+          <Text variant="bodyLarge" style={styles.introducao}>
+            Top 5 filmes que eu mais gosto.
+          </Text>
 
-        {filmes.map((filme) => (
-          <View key={filme.id} style={styles.card}>
-            <Image source={{ uri: filme.imagem }} style={styles.imagem} />
+          {filmes.map((filme) => (
+            <Card key={filme.id} style={styles.card} mode="elevated">
+              <Card.Cover
+                source={{ uri: filme.imagem }}
+                style={styles.imagem}
+                resizeMode="contain"
+              />
 
-            <View style={styles.informacoes}>
-              <Text style={styles.tituloFilme}>{filme.titulo}</Text>
+              <Card.Content style={styles.informacoes}>
+                <Text variant="headlineSmall" style={styles.tituloFilme}>
+                  {filme.titulo}
+                </Text>
 
-              <Text style={styles.detalhes}>
-                {filme.ano} • {filme.genero}
-              </Text>
+                <Text variant="bodyMedium" style={styles.detalhes}>
+                  {filme.ano} • {filme.genero}
+                </Text>
 
-              <Text style={styles.diretor}>Direção: {filme.diretor}</Text>
+                <Text variant="bodyMedium" style={styles.diretor}>
+                  Direção: {filme.diretor}
+                </Text>
 
-              <Text style={styles.descricao}>{filme.descricao}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+                <Text variant="bodyMedium" style={styles.descricao}>
+                  {filme.descricao}
+                </Text>
+              </Card.Content>
+            </Card>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#121212",
-  },
-
-  conteudo: {
-    padding: 20,
-  },
-
-  tituloPrincipal: {
-    color: "#ffffff",
-    fontSize: 30,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-
-  introducao: {
-    color: "#b5b5b5",
-    fontSize: 16,
-    lineHeight: 22,
-    marginBottom: 24,
-  },
-
-  card: {
-    backgroundColor: "#242424",
-    borderRadius: 12,
-    overflow: "hidden",
-    marginBottom: 24,
-  },
-
-  imagem: {
-    width: "100%",
-    height: 400,
-    resizeMode: "cover",
-  },
-
-  informacoes: {
-    padding: 16,
-  },
-
-  tituloFilme: {
-    color: "#ffffff",
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-
-  detalhes: {
-    color: "#d3a95f",
-    fontSize: 15,
-    marginBottom: 8,
-  },
-
-  diretor: {
-    color: "#eeeeee",
-    fontSize: 15,
-    fontWeight: "600",
-    marginBottom: 10,
-  },
-
-  descricao: {
-    color: "#cccccc",
-    fontSize: 15,
-    lineHeight: 22,
-  },
-});
