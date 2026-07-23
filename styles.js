@@ -57,6 +57,28 @@ const styles = StyleSheet.create({
     color: "#cccccc",
     lineHeight: 22,
   },
+
+  apiTitulo: {
+    marginTop: 16,
+    marginBottom: 8,
+    color: "#d3a95f",
+    fontSize: 18,
+    fontWeight: "light",
+  },
+
+  apiTexto: {
+    color: "#ffffff",
+    fontSize: 15,
+    marginBottom: 6,
+    paddingBottom: 6,
+  },
+
+  gato: {
+    width: "100%",
+    height: 250,
+    marginTop: 20,
+    borderRadius: 12,
+  },
 });
 
 export default styles;

@@ -1,5 +1,12 @@
-import { SafeAreaView, ScrollView, StatusBar } from "react-native";
-import { Card, MD3DarkTheme, PaperProvider, Text } from "react-native-paper";
+import { SafeAreaView, ScrollView, StatusBar, Image } from "react-native";
+import {
+  Card,
+  MD3DarkTheme,
+  PaperProvider,
+  Text,
+  Button,
+} from "react-native-paper";
+import { useState, useEffect } from "react";
 import styles from "./styles";
 
 const theme = {
@@ -70,6 +77,31 @@ export default function App() {
         "https://m.media-amazon.com/images/M/MV5BMjFjYWY1ZWMtNjRkZS00NDY4LTk5MTUtMTAxNDM2NjEyMjgxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     },
   ];
+
+  const [mononoke, setMononoke] = useState(null);
+
+  useEffect(() => {
+    buscarFilme();
+  }, []);
+
+  async function buscarFilme() {
+    const resposta = await fetch(
+      "https://ghibliapi.vercel.app/films/ff24da26-a969-4f0e-ba1e-a122ead6c6e3",
+    );
+    const dados = await resposta.json();
+    setMononoke(dados);
+  }
+
+  const [gato, setGato] = useState("");
+
+  async function buscarGato() {
+    const resposta = await fetch("https://api.thecatapi.com/v1/images/dhj");
+
+    const dados = await resposta.json();
+
+    setGato(dados.url);
+  }
+
   return (
     <PaperProvider theme={theme}>
       <SafeAreaView style={styles.container}>
@@ -108,9 +140,35 @@ export default function App() {
                 <Text variant="bodyMedium" style={styles.descricao}>
                   {filme.descricao}
                 </Text>
+
+                {filme.titulo === "Princesa Mononoke" && mononoke && (
+                  <>
+                    <Text style={styles.apiTitulo}>Informações da API</Text>
+                    <Text style={styles.apiTexto}>
+                      🎬 Produtor: {mononoke.producer}
+                    </Text>
+
+                    <Text style={styles.apiTexto}>
+                      📅 Lançamento: {mononoke.release_date}
+                    </Text>
+
+                    <Text style={styles.apiTexto}>
+                      ⭐ Rotten Tomatoes: {mononoke.rt_score}
+                    </Text>
+                  </>
+                )}
               </Card.Content>
             </Card>
           ))}
+
+          <Button
+            mode="contained"
+            onPress={buscarGato}
+            style={{ marginTop: 20 }}
+          >
+            Obrigado! 🐱
+          </Button>
+          {gato !== "" && <Image source={{ uri: gato }} style={styles.gato} />}
         </ScrollView>
       </SafeAreaView>
     </PaperProvider>
