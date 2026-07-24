@@ -6,6 +6,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#121212",
   },
 
+  center: {
+    flex: 1,
+    backgroundColor: "#121212",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  lista: {
+    padding: 20,
+  },
+
   conteudo: {
     padding: 20,
   },
@@ -56,6 +67,21 @@ const styles = StyleSheet.create({
   descricao: {
     color: "#cccccc",
     lineHeight: 22,
+    marginBottom: 10,
+  },
+
+  info: {
+    color: "#cccccc",
+    marginBottom: 4,
+  },
+
+  label: {
+    color: "#d3a95f",
+    fontWeight: "bold",
+  },
+
+  botaoContainer: {
+    marginTop: 16,
   },
 
   apiTitulo: {
@@ -71,13 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 6,
     paddingBottom: 6,
-  },
-
-  gato: {
-    width: "100%",
-    height: 250,
-    marginTop: 20,
-    borderRadius: 12,
   },
 });
 
